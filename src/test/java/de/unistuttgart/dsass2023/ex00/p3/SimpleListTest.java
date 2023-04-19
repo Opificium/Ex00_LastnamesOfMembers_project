@@ -74,6 +74,6 @@ public class SimpleListTest {
 
     @Test
     public void testSkippingIteratorSkipTo(){
-        //TODO implement test for that
+        //TODO implement test for that, see skiptonext cases for {0, 1}, think if method works like you wrote it
     }
 }
