@@ -14,10 +14,10 @@ public class SimpleListSkippingIterator implements Iterator {
     /**
      * The index of the element currently processed by the Iterator
      */
-    private int currentElementIndex = -1;
+    public int currentElementIndex = -1;
 
     /**
-     * The Constructor of the {@link SimpleListSkippingIterator class, providing the parameter of the list to be iterated upon}
+     * The Constructor of the {@link SimpleListIterator class, providing the parameter of the list to be iterated upon}
      * @param iteratedList The list to be operated on
      */
     public SimpleListSkippingIterator(final List iteratedList) {
@@ -39,9 +39,10 @@ public class SimpleListSkippingIterator implements Iterator {
      */
     @Override
     public Object next() {
+        currentElementIndex++;
         for (Object o : iteratedList) {
-            currentElementIndex++;
-            return o;
+            if (o.equals(iteratedList.get(currentElementIndex)))
+                return o;
         }
 
         return Optional.empty();
@@ -53,22 +54,16 @@ public class SimpleListSkippingIterator implements Iterator {
      * @param numberSkippedElements The number of elements one wants to skip in a go, so for example if provided with {@param numberSkippedElements = 3} the iterator will only return every 3rd element
      * @return all elements of the list not to be skipped
      */
-    public Object skipToNext(final int numberSkippedElements){
+    public Object skipToNext(final int numberSkippedElements) throws IllegalArgumentException{
+        if (numberSkippedElements < 0)
+            throw new IllegalArgumentException("The Elements to be skipped cannot be less than 0!");
+
+        currentElementIndex++;
+        //TODO see if implementation of skip feature works, momentarily doubted
         for (Object o : iteratedList){
-            currentElementIndex++;
             if (currentElementIndex % numberSkippedElements == 0)
                 return o;
         }
         return Optional.empty();
-    }
-
-    /**
-     * This method removes the currently processed element of the iterator from the list
-     * Method is currently not supported, therefore throws an exception
-     * @throws UnsupportedOperationException when method is tried to use
-     */
-    @Override
-    public void remove() throws UnsupportedOperationException{
-        throw new UnsupportedOperationException("Cannot remove Element with Iterator, this method is not supported.");
     }
 }

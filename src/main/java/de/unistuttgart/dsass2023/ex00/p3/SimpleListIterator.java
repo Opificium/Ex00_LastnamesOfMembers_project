@@ -15,7 +15,7 @@ public class SimpleListIterator implements Iterator {
     /**
      * The index of the element currently processed by the Iterator
      */
-    private int currentElementIndex = -1;
+    public int currentElementIndex = -1;
 
     /**
      * The Constructor of the {@link SimpleListIterator class, providing the parameter of the list to be iterated upon}
@@ -40,9 +40,10 @@ public class SimpleListIterator implements Iterator {
      */
     @Override
     public Object next() {
+        currentElementIndex++;
         for (Object o : iteratedList) {
-            currentElementIndex++;
-            return o;
+            if (o.equals(iteratedList.get(currentElementIndex)))
+                return o;
         }
 
         return Optional.empty();
