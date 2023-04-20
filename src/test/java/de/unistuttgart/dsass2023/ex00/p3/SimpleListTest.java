@@ -53,7 +53,7 @@ public class SimpleListTest {
 
     @Test
     public void testSkippingIteratorHasNext(){
-        assertEquals("Iterator hasNext() before Iterator next()", true, list.skippingIterator(2).hasNext());
+        assertTrue("Iterator hasNext() before Iterator next()", list.skippingIterator(2).hasNext());
     }
 
     @Test
@@ -66,6 +66,7 @@ public class SimpleListTest {
     }
 
     @Test
+    @Description("")
     public void testSkippingIteratorException() {
         Exception exception = assertThrows(UnsupportedOperationException.class, () -> {
             list.skippingIterator(2).remove();

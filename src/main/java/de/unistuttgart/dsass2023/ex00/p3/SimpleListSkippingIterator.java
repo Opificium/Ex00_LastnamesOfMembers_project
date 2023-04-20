@@ -50,15 +50,20 @@ public class SimpleListSkippingIterator implements Iterator {
 
     /**
      * The Iterator only returns the n-th element of the provided list, starting with the first, n to be specified in {@param numberSkippedElements}.
+     * if {@param numberOfSkippedElements = 0}, function will behave like next()( method
      * The Iterator counts all the elements of the list  to ensure hasNext method is working properly
      * @param numberSkippedElements The number of elements one wants to skip in a go, so for example if provided with {@param numberSkippedElements = 3} the iterator will only return every 3rd element
      * @return all elements of the list not to be skipped
+     * @throws IllegalArgumentException when elements to be skipped are less than 0
      */
     public Object skipToNext(final int numberSkippedElements) throws IllegalArgumentException{
         if (numberSkippedElements < 0)
             throw new IllegalArgumentException("The Elements to be skipped cannot be less than 0!");
 
-        currentElementIndex++;
+        if (numberSkippedElements == 0)
+            return next();
+
+        currentElementIndex =+ currentElementIndex + numberSkippedElements + 1;
         //TODO see if implementation of skip feature works, momentarily doubted
         for (Object o : iteratedList){
             if (currentElementIndex % numberSkippedElements == 0)
