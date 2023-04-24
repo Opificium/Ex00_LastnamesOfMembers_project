@@ -23,7 +23,6 @@ public interface ISimpleListIterable<T extends Comparable<T>> extends ISimpleLis
 	* element in the collection, starting with the
 	* first element.
 	*
-	* @param numberSkippedElements the number of skipped elements+1.
 	* @return the iterator.
 	* @throws IllegalArgumentException if numberSkippedElements is less than 1.
 	*/

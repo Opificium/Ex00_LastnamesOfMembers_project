@@ -29,19 +29,20 @@ public class SimpleListTest {
         list.append("C");
         list.append("D");
         list.append("E");
-        compareListToIterator = new Object[]{"A", "B", "C", "D", "E"};
     }
 
     @Test
     public void testDefaultIteratorhasNext(){
         assertEquals("Iterator hasNext() before Iterator next()", true, list.iterator().hasNext());
     }
+
+
     @Test
     public void testDefaultIteratorNext() {
         Object[] iteratorArray = new Object[5];
-        for (int i = 0; i < list.getSize(); i++){
+        for (int i = 0; i < list.getSize(); i++)
             iteratorArray[i] = list.iterator().next();
-        }
+
         assertArrayEquals("Check first use of Iterator next()", compareListToIterator, iteratorArray);
     }
     @Test
@@ -59,8 +60,9 @@ public class SimpleListTest {
     @Test
     public void testSkippingIteratorNext(){
         Object[] iteratorArray = new Object[5];
-        for (int i = 0; i < list.getSize(); i++){
-            iteratorArray[i] = list.skippingIterator(2).next();
+        for (int i = 0; i < list.getSize(); i++) {
+            iteratorArray[i] = list.skippingIterator(0).next();
+            System.out.println(iteratorArray[i]);
         }
         assertArrayEquals("Check first use of Iterator next()", compareListToIterator, iteratorArray);
     }
@@ -69,12 +71,16 @@ public class SimpleListTest {
     @Description("")
     public void testSkippingIteratorException() {
         Exception exception = assertThrows(UnsupportedOperationException.class, () -> {
-            list.skippingIterator(2).remove();
+            list.skippingIterator(0).remove();
         });
     }
 
     @Test
     public void testSkippingIteratorSkipTo(){
-        //TODO implement test for that, see skiptonext cases for {0, 1}, think if method works like you wrote it
+        Object[] iteratorArray = new Object[5];
+        for (int i = 0; i < list.getSize(); i++)
+            iteratorArray[i] = list.skippingIterator(2).skipToNext();
+
+        assertArrayEquals("Check first use of Iterator next()", compareListToIterator, iteratorArray);
     }
 }

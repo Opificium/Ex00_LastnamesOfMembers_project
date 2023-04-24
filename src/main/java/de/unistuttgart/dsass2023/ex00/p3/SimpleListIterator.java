@@ -12,10 +12,11 @@ public class SimpleListIterator implements Iterator {
      */
     private final List iteratedList;
 
+
     /**
      * The index of the element currently processed by the Iterator
      */
-    public int currentElementIndex = -1;
+    private int currentElementIndex = -1;
 
     /**
      * The Constructor of the {@link SimpleListIterator class, providing the parameter of the list to be iterated upon}
