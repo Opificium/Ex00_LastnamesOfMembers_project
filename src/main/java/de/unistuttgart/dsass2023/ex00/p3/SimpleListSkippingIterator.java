@@ -14,14 +14,17 @@ public class SimpleListSkippingIterator implements Iterator {
     /**
      * The index of the element currently processed by the Iterator
      */
-    public int currentElementIndex = -1;
+    private int currentElementIndex = -1;
+    private final int numberSkippedElements;
 
     /**
      * The Constructor of the {@link SimpleListIterator class, providing the parameter of the list to be iterated upon}
      * @param iteratedList The list to be operated on
+     * @param numberSkippedElements The elements one wants to skip while iterating on the list
      */
-    public SimpleListSkippingIterator(final List iteratedList) {
+    public SimpleListSkippingIterator(final List iteratedList, final int numberSkippedElements) {
         this.iteratedList = iteratedList;
+        this.numberSkippedElements = numberSkippedElements;
     }
 
     /**
@@ -57,7 +60,7 @@ public class SimpleListSkippingIterator implements Iterator {
      * @throws IllegalArgumentException when elements to be skipped are less than 0
      */
 
-    public Object skipToNext(final int numberSkippedElements) throws IllegalArgumentException{
+    public Object skipToNext() throws IllegalArgumentException{
         if (numberSkippedElements < 0)
             throw new IllegalArgumentException("The Elements to be skipped cannot be less than 0!");
 
@@ -68,7 +71,7 @@ public class SimpleListSkippingIterator implements Iterator {
         currentElementIndex += numberSkippedElements;
 
         for (Object o : iteratedList)
-            if (currentElementIndex % numberSkippedElements == 0)
+            if (currentElementIndex % numberSkippedElements == 1)
                 return o;
 
         return Optional.empty();
@@ -82,4 +85,5 @@ public class SimpleListSkippingIterator implements Iterator {
     public void remove() throws UnsupportedOperationException{
         throw new UnsupportedOperationException("Cannot remove Element with Iterator, this method is not supported.");
     }
+
 }
