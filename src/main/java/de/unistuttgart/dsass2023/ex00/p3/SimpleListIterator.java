@@ -38,16 +38,17 @@ public class SimpleListIterator implements Iterator {
     /**
      * The Iterator processes all elements of the list and returns them, while counting them to ensure hasNext method is working properly
      * @return elements of list
+     * @throws NoSuchElementException when there are no more elements on the list to be iterated
      */
     @Override
-    public Object next() {
+    public Object next() throws NoSuchElementException{
         currentElementIndex++;
         for (Object o : iteratedList) {
             if (o.equals(iteratedList.get(currentElementIndex)))
                 return o;
         }
 
-        return Optional.empty();
+        throw new NoSuchElementException("There are no further elements on the list to be iterated upon!");
     }
 
     /**

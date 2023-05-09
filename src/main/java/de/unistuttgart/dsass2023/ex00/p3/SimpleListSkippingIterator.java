@@ -2,6 +2,7 @@ package de.unistuttgart.dsass2023.ex00.p3;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class SimpleListSkippingIterator implements Iterator {
@@ -39,28 +40,29 @@ public class SimpleListSkippingIterator implements Iterator {
     /**
      * The Iterator processes all elements of the list and returns them, while counting them to ensure hasNext method is working properly
      * @return elements of list
+     * @throws NoSuchElementException when there are no more elements on the list to be iterated
      */
     @Override
-    public Object next() {
+    public Object next() throws NoSuchElementException{
         currentElementIndex++;
         for (Object o : iteratedList) {
             if (o.equals(iteratedList.get(currentElementIndex)))
                 return o;
         }
 
-        return Optional.empty();
+        throw new NoSuchElementException("There are no more elements to be iterated!");
     }
 
     /**
      * The Iterator only returns the n-th element of the provided list, starting with the first, n to be specified in {@param numberSkippedElements}.
      * if {@param numberOfSkippedElements = 0}, function will behave like next()( method
      * The Iterator counts all the elements of the list  to ensure hasNext method is working properly
-     * @param numberSkippedElements The number of elements one wants to skip in a go, so for example if provided with {@param numberSkippedElements = 3} the iterator will only return every 3rd element
      * @return all elements of the list not to be skipped
      * @throws IllegalArgumentException when elements to be skipped are less than 0
+     * @throws NoSuchElementException when there are no more elements on the list to be iterated
      */
 
-    public Object skipToNext() throws IllegalArgumentException{
+    public Object skipToNext() throws IllegalArgumentException, NoSuchElementException{
         if (numberSkippedElements < 0)
             throw new IllegalArgumentException("The Elements to be skipped cannot be less than 0!");
 
@@ -74,7 +76,7 @@ public class SimpleListSkippingIterator implements Iterator {
             if (currentElementIndex % numberSkippedElements == 1)
                 return o;
 
-        return Optional.empty();
+        throw new NoSuchElementException("There are no more elements to be iterated!");
     }
     /**
      * This method removes the currently processed element of the iterator from the list
